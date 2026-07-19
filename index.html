@@ -59,7 +59,7 @@
   .gborder{
     background:
       linear-gradient(180deg, var(--surface-2), var(--surface)) padding-box,
-      conic-gradient(from var(--spin-angle), var(--blue), #ffffff, var(--blue-2), #ffffff, var(--blue)) border-box;
+      conic-gradient(from var(--spin-angle), var(--blue-dim), var(--blue), var(--blue-2), var(--blue), var(--blue-dim)) border-box;
     border:2px solid transparent;
   }
 
@@ -246,12 +246,25 @@
   /* ---- section label (maps) ---- */
   .section-label{
     font-family:var(--font-display); font-size:18px; font-weight:700; text-align:center;
-    margin:34px 0 6px; color:var(--text);
+    margin:18px 0 6px; color:var(--text);
   }
   .section-sub{ font-size:12.5px; color:var(--text-dim); text-align:center; margin-bottom:18px; }
 
-  .maps-grid{ display:grid; grid-template-columns:1fr; gap:14px; }
+  .maps-grid{ display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:8px; }
   .map-card{ border-radius:var(--radius); padding:20px; }
+
+  /* ---- map video (TikTok, autoplay+loop, hemat data) ---- */
+  .map-video-wrap{
+    position:relative; width:100%; aspect-ratio:16/9;
+    border-radius:11px; overflow:hidden; margin-bottom:14px;
+    background:var(--surface-2); border:1px solid var(--border);
+  }
+  .map-video{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+  .map-video-empty{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:6px; font-size:11.5px; color:var(--text-dimmer); text-align:center; padding:12px; line-height:1.5;
+  }
+  .map-video-wrap.has-video .map-video-empty{ display:none; }
   .map-badge{
     display:inline-flex; align-items:center; gap:6px; font-size:9.5px; font-weight:700;
     letter-spacing:.1em; text-transform:uppercase; padding:4px 12px; border-radius:100px; margin-bottom:12px;
@@ -354,6 +367,44 @@
 
     <div class="divider"></div>
   </div>
+
+  <!-- ═══ ROBLOX MAPS (video TikTok auto-play + loop) ═══ -->
+  <div class="section-label">🗺️ Roblox Maps Kami</div>
+  <p class="section-sub">Kunjungi dunia Roblox yang kami buat — siap untuk dijelajahi bersama!</p>
+
+  <div class="maps-grid">
+
+    <!-- GANTI isi data-tiktok-url dengan link video TikTok kamu (contoh: https://www.tiktok.com/@user/video/7123456789012345678) -->
+    <div class="map-card gborder">
+      <div class="map-video-wrap">
+        <iframe class="map-video" data-tiktok-url="https://www.tiktok.com/@ridho_videooo/video/7648612632928275732" title="Preview Mount NIGHT" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen frameborder="0"></iframe>
+        <div class="map-video-empty">🎬<br>Link TikTok belum diisi</div>
+      </div>
+      <div class="map-badge badge-blue">⛰️ Night Map</div>
+      <div class="map-title">Mount NIGHT</div>
+      <div class="map-desc">Petualangan malam yang epik di pegunungan misterius. Eksplorasi landscape gelap yang indah dengan efek cahaya yang memukau.</div>
+      <button onclick="openRobloxMap('1ed2b41c4bb49b4fbd520c0511eb5642')" class="btn gborder btn-primary" type="button">
+        Mainkan Sekarang
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+
+    <!-- GANTI isi data-tiktok-url dengan link video TikTok kamu -->
+    <div class="map-card gborder">
+      <div class="map-video-wrap">
+        <iframe class="map-video" data-tiktok-url="https://www.tiktok.com/@.ridho_video/video/7656541410652343560" title="Preview Nexus UNDERGROUND" loading="lazy" allow="autoplay; encrypted-media; fullscreen" allowfullscreen frameborder="0"></iframe>
+        <div class="map-video-empty">🎬<br>Link TikTok belum diisi</div>
+      </div>
+      <div class="map-badge badge-red">🔞 18+ Party</div>
+      <div class="map-title">Nexus UNDERGROUND</div>
+      <div class="map-desc">Maps Party eksklusif 18+. Tempat komunitas berkumpul, bersosialisasi, dan menikmati suasana underground yang unik dan seru.</div>
+      <button onclick="openRobloxMap('c930cd65ee954d4eb0a1c516534248f8')" class="btn gborder btn-accent" type="button">
+        Mainkan Sekarang
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+
+  </div><!-- /maps-grid -->
 
   <!-- ═══ CARDS ═══ -->
   <div class="grid">
@@ -482,34 +533,6 @@
 
   </div><!-- /grid -->
 
-  <!-- ═══ ROBLOX MAPS ═══ -->
-  <div class="section-label">🗺️ Roblox Maps Kami</div>
-  <p class="section-sub">Kunjungi dunia Roblox yang kami buat — siap untuk dijelajahi bersama!</p>
-
-  <div class="maps-grid">
-
-    <div class="map-card gborder">
-      <div class="map-badge badge-blue">⛰️ Night Map</div>
-      <div class="map-title">Mount NIGHT</div>
-      <div class="map-desc">Petualangan malam yang epik di pegunungan misterius. Eksplorasi landscape gelap yang indah dengan efek cahaya yang memukau.</div>
-      <button onclick="openRobloxMap('1ed2b41c4bb49b4fbd520c0511eb5642')" class="btn gborder btn-primary" type="button">
-        Main Sekarang
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-    </div>
-
-    <div class="map-card gborder">
-      <div class="map-badge badge-red">🔞 18+ Party</div>
-      <div class="map-title">Nexus UNDERGROUND</div>
-      <div class="map-desc">Maps Party eksklusif 18+. Tempat komunitas berkumpul, bersosialisasi, dan menikmati suasana underground yang unik dan seru.</div>
-      <button onclick="openRobloxMap('c930cd65ee954d4eb0a1c516534248f8')" class="btn gborder btn-accent" type="button">
-        Masuk Maps
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-    </div>
-
-  </div><!-- /maps-grid -->
-
   <!-- ═══ FOOTER ═══ -->
   <footer>
     <div class="creator-card gborder">
@@ -569,6 +592,29 @@
   }
   updateStatus();
   setInterval(updateStatus, 30000);
+
+  /* ══════════════════════════════════════════
+     VIDEO PREVIEW MAPS (TikTok Embed Player)
+     Cara ganti video: edit atribut data-tiktok-url
+     di tag <iframe class="map-video" ...> pada HTML,
+     isi dengan link lengkap video TikTok, contoh:
+     https://www.tiktok.com/@user/video/7123456789012345678
+     Hemat CPU/GPU/data: iframe cuma dibuat kalau link diisi,
+     dan loading="lazy" biar video di luar layar belum ditarik.
+  ══════════════════════════════════════════ */
+  function initMapVideos() {
+    document.querySelectorAll('.map-video').forEach(function(iframe) {
+      var url = iframe.getAttribute('data-tiktok-url') || '';
+      var match = url.match(/video\/(\d+)/) || url.match(/(\d{15,20})/);
+      if (!match) return; // link belum diisi, biarkan placeholder tampil
+      var params = 'autoplay=1&loop=1&muted=1&controls=0&progress_bar=0' +
+        '&play_button=0&volume_control=0&fullscreen_button=0&timestamp=0' +
+        '&music_info=0&description=0&rel=0&native_context_menu=0&closed_caption=0';
+      iframe.src = 'https://www.tiktok.com/player/v1/' + match[1] + '?' + params;
+      iframe.closest('.map-video-wrap').classList.add('has-video');
+    });
+  }
+  initMapVideos();
 
   /* ── State ── */
   let selectedAmount = null;
