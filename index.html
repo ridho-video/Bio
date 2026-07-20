@@ -257,14 +257,9 @@
   .map-video-wrap{
     position:relative; width:100%; aspect-ratio:16/9;
     border-radius:11px; overflow:hidden; margin-bottom:14px;
-    background:var(--surface-2); border:1px solid var(--border);
+    background:#000; border:1px solid var(--border);
   }
-  .map-video{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
-  .map-video-empty{
-    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:6px; font-size:11.5px; color:var(--text-dimmer); text-align:center; padding:12px; line-height:1.5;
-  }
-  .map-video-wrap.has-video .map-video-empty{ display:none; }
+  .map-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; background:#000; }
   .map-badge{
     display:inline-flex; align-items:center; gap:6px; font-size:9.5px; font-weight:700;
     letter-spacing:.1em; text-transform:uppercase; padding:4px 12px; border-radius:100px; margin-bottom:12px;
@@ -374,11 +369,11 @@
 
   <div class="maps-grid">
 
-    <!-- GANTI isi data-tiktok-url dengan link video TikTok kamu (contoh: https://www.tiktok.com/@user/video/7123456789012345678) -->
     <div class="map-card gborder">
       <div class="map-video-wrap">
-        <iframe class="map-video" data-tiktok-url="https://www.tiktok.com/@ridho_videooo/video/7648612632928275732" title="Preview Mount NIGHT" allow="autoplay; encrypted-media; fullscreen" allowfullscreen frameborder="0"></iframe>
-        <div class="map-video-empty">🎬<br>Link TikTok belum diisi</div>
+        <video class="map-video" src="Mount_Night.mp4" poster="Mount_Night_poster.jpg" muted loop playsinline preload="none">
+          Video tidak didukung browser ini.
+        </video>
       </div>
       <div class="map-badge badge-blue">⛰️ Night Map</div>
       <div class="map-title">Mount NIGHT</div>
@@ -389,15 +384,15 @@
       </button>
     </div>
 
-    <!-- GANTI isi data-tiktok-url dengan link video TikTok kamu -->
     <div class="map-card gborder">
       <div class="map-video-wrap">
-        <iframe class="map-video" data-tiktok-url="https://www.tiktok.com/@.ridho_video/video/7656541410652343560" title="Preview Nexus UNDERGROUND" allow="autoplay; encrypted-media; fullscreen" allowfullscreen frameborder="0"></iframe>
-        <div class="map-video-empty">🎬<br>Link TikTok belum diisi</div>
+        <video class="map-video" src="NEXSUS_UNDERGROUND.mp4" poster="NEXSUS_UNDERGROUND_poster.jpg" muted loop playsinline preload="none">
+          Video tidak didukung browser ini.
+        </video>
       </div>
-      <div class="map-badge badge-red">🔞 18+ Party</div>
+      <div class="map-badge badge-red">🔞 16+</div>
       <div class="map-title">Nexus UNDERGROUND</div>
-      <div class="map-desc">Maps Party eksklusif 18+. Tempat komunitas berkumpul, bersosialisasi, dan menikmati suasana underground yang unik dan seru.</div>
+      <div class="map-desc">Maps Party eksklusif 16+. Tempat komunitas berkumpul, bersosialisasi, dan menikmati suasana underground yang unik dan seru.</div>
       <button onclick="openRobloxMap('c930cd65ee954d4eb0a1c516534248f8')" class="btn gborder btn-accent" type="button">
         Mainkan Sekarang
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -594,65 +589,42 @@
   setInterval(updateStatus, 30000);
 
   /* ══════════════════════════════════════════
-     VIDEO PREVIEW MAPS (TikTok Embed Player)
-     Cara ganti video: edit atribut data-tiktok-url
-     di tag <iframe class="map-video" ...> pada HTML,
-     isi dengan link lengkap video TikTok, contoh:
-     https://www.tiktok.com/@user/video/7123456789012345678
-
-     Hemat CPU/GPU/data + anti macet di HP:
-     video HANYA dimuat & autoplay saat kartunya kelihatan
-     di layar (≥60%). Begitu discroll keluar layar, video
-     langsung di-unload (bukan cuma dipause) biar tidak
-     rebutan CPU/GPU sama video lain & tidak nge-lag pas scroll.
-     Jadi di HP (1 kolom) cuma 1 video aktif dalam satu waktu.
+     VIDEO PREVIEW MAPS (video ori, self-host)
+     60fps, sudah dikompres, tanpa audio (toh muted).
+     Hemat CPU/GPU + anti macet di HP:
+     video HANYA play saat kartunya kelihatan di layar
+     (≥60%). Begitu discroll keluar layar, video di-pause
+     (decoder berhenti kerja) biar tidak rebutan CPU/GPU
+     sama video lain. preload="none" di HTML juga bikin
+     video di luar layar belum ditarik sama sekali sebelum
+     ke-play pertama kali.
   ══════════════════════════════════════════ */
-  var TIKTOK_PARAMS = 'autoplay=1&loop=1&muted=1&controls=0&progress_bar=0' +
-    '&play_button=0&volume_control=0&fullscreen_button=0&timestamp=0' +
-    '&music_info=0&description=0&rel=0&native_context_menu=0&closed_caption=0';
-
-  function activateMapVideo(wrap) {
-    var iframe = wrap.querySelector('.map-video');
-    var id = iframe.dataset.videoId;
-    if (!id || wrap.classList.contains('has-video')) return;
-    iframe.src = 'https://www.tiktok.com/player/v1/' + id + '?' + TIKTOK_PARAMS;
-    wrap.classList.add('has-video');
-  }
-
-  function deactivateMapVideo(wrap) {
-    var iframe = wrap.querySelector('.map-video');
-    if (!wrap.classList.contains('has-video')) return;
-    iframe.src = ''; // lepas video sepenuhnya, bebasin CPU/GPU/RAM
-    wrap.classList.remove('has-video');
-  }
-
   function initMapVideos() {
     var wraps = document.querySelectorAll('.map-video-wrap');
     var canObserve = 'IntersectionObserver' in window;
 
-    wraps.forEach(function(wrap) {
-      var iframe = wrap.querySelector('.map-video');
-      var url = iframe.getAttribute('data-tiktok-url') || '';
-      var match = url.match(/video\/(\d+)/) || url.match(/(\d{15,20})/);
-      if (!match) return; // link belum diisi, biarkan placeholder tampil
-      iframe.dataset.videoId = match[1];
-      if (!canObserve) { activateMapVideo(wrap); return; } // fallback browser lama
-    });
+    function playVid(wrap) {
+      var v = wrap.querySelector('.map-video');
+      if (v) v.play().catch(function(){});
+    }
+    function pauseVid(wrap) {
+      var v = wrap.querySelector('.map-video');
+      if (v) v.pause();
+    }
 
-    if (!canObserve) return;
+    if (!canObserve) { wraps.forEach(playVid); return; } // fallback browser lama
 
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting) activateMapVideo(entry.target);
-        else deactivateMapVideo(entry.target);
+        if (entry.isIntersecting) playVid(entry.target);
+        else pauseVid(entry.target);
       });
     }, { threshold: 0.6 });
 
-    wraps.forEach(function(wrap) {
-      if (wrap.querySelector('.map-video').dataset.videoId) observer.observe(wrap);
-    });
+    wraps.forEach(function(wrap) { observer.observe(wrap); });
   }
   initMapVideos();
+
 
   /* ── State ── */
   let selectedAmount = null;
