@@ -182,6 +182,26 @@
   }
   .step-label::after{content:""; flex:1; height:1px; background:linear-gradient(90deg, var(--border), transparent);}
 
+  /* ---- topup notice ---- */
+  .topup-notice{
+    border-radius:12px; padding:14px 15px 15px; margin-bottom:14px;
+    background:rgba(58,167,255,.05); border:1px solid var(--border);
+  }
+  .topup-notice-title{
+    display:flex; align-items:center; gap:7px;
+    font-family:var(--font-display); font-weight:700; font-size:13px;
+    color:var(--text); margin-bottom:10px;
+  }
+  .topup-notice ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+  .topup-notice li{
+    font-size:11.5px; color:var(--text-dim); line-height:1.6;
+    display:flex; align-items:flex-start; gap:7px;
+  }
+  .topup-notice li b{ color:var(--text); font-weight:700; }
+  .topup-notice .tn-check{ color:var(--green); flex-shrink:0; font-size:12px; line-height:1.6; }
+  .topup-notice .tn-dot{ color:var(--blue-2); flex-shrink:0; line-height:1.6; }
+  .topup-notice .tn-text{ flex:1; min-width:0; }
+
   /* ---- price grid ---- */
   .price-grid{
     display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
@@ -467,6 +487,27 @@
       <div class="card-label">Top Up Roblox</div>
       <div class="card-title">Harga Top Up Robux</div>
       <div class="card-desc">Harga terjangkau, proses cepat &amp; aman. Pajak Roblox kami yang tanggung — kamu terima bersih!</div>
+
+      <div class="topup-notice">
+        <div class="topup-notice-title">📌 Ketentuan Top Up</div>
+        <ul>
+          <li><span class="tn-check">✅</span><span class="tn-text">Harga sesuai nominal yang dipilih.</span></li>
+          <li><span class="tn-check">✅</span><span class="tn-text">Pembelian untuk akun berbeda dihitung terpisah.</span></li>
+          <li><span class="tn-check">✅</span><span class="tn-text">Harga paket hanya berlaku untuk pembelian sesuai nominal paket.</span></li>
+          <li><span class="tn-check">✅</span><span class="tn-text">Kesalahan penulisan username menjadi tanggung jawab pembeli.</span></li>
+        </ul>
+      </div>
+
+      <div class="topup-notice">
+        <div class="topup-notice-title">📣 Informasi Pembelian</div>
+        <ul>
+          <li><span class="tn-dot">•</span><span class="tn-text">Harga berlaku <b>per akun dan per nominal</b>.</span></li>
+          <li><span class="tn-dot">•</span><span class="tn-text">Pembelian ke akun berbeda dihitung sebagai <b>transaksi terpisah</b>.</span></li>
+          <li><span class="tn-dot">•</span><span class="tn-text">Harga paket (contoh: <b>1000 Robux</b>) hanya berlaku jika membeli <b>1000 Robux dalam satu pesanan</b>.</span></li>
+          <li><span class="tn-dot">•</span><span class="tn-text">Jika membeli <b>500 + 500</b> untuk 2 akun berbeda, maka harga mengikuti <b>2× paket 500 Robux</b>.</span></li>
+          <li><span class="tn-dot">•</span><span class="tn-text">Pastikan username Roblox yang diberikan sudah benar sebelum melakukan pembayaran.</span></li>
+        </ul>
+      </div>
 
       <div class="step-label">① Pilih Nominal</div>
       <div class="price-grid" id="price-grid">
